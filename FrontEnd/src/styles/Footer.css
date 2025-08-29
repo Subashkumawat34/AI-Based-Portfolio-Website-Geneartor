@@ -1,0 +1,93 @@
+.site-footer {
+  background-color: #02192e; /* A dark, professional blue-grey */
+  color: #bdc3c7; /* Light grey text for good contrast */
+  padding: 50px 0;
+  font-size: 0.9rem;
+  margin-top: auto; /* Pushes footer to bottom if content is short (in a flex container) */
+}
+
+.footer-heading {
+  color: #ffffff; /* White headings */
+  margin-bottom: 20px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px; /* Optional */
+}
+
+.footer-column p.small {
+  line-height: 1.7;
+}
+
+.footer-link {
+  color: #ecf0f1; /* Lighter grey for links */
+  text-decoration: none;
+  transition: color 0.2s ease-in-out, padding-left 0.2s ease-in-out;
+  display: inline-block; /* Allows padding effect */
+  margin-bottom: 8px;
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: #ffffff; /* White on hover */
+  /* text-decoration: underline; */ /* Optional: underline on hover */
+  padding-left: 5px; /* Subtle hover effect */
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.social-icons .social-icon {
+  color: #ecf0f1;
+  font-size: 1.5rem; /* Adjust icon size as needed */
+  margin-right: 15px;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  display: inline-block; /* For transform to work properly */
+}
+
+.social-icons .social-icon:last-child {
+  margin-right: 0;
+}
+
+.social-icons .social-icon:hover,
+.social-icons .social-icon:focus {
+  color: #ffffff;
+  transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+.copyright-text {
+  color: #3df2ff; /* Muted color for copyright */
+  border-top-color: #000000 !important; /* Darker border for separation */
+}
+
+.copyright-text p {
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+  /* Below large screens */
+  .footer-column {
+    margin-bottom: 30px;
+  }
+  .footer-heading {
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  /* Below medium screens */
+  .site-footer {
+    text-align: center; /* Center align content on smaller screens */
+  }
+  .footer-column ul {
+    display: inline-block; /* Helps with centering if text-align:center on parent */
+    text-align: left; /* Keep list items left-aligned within their centered block */
+  }
+  .social-icons {
+    margin-top: 10px;
+  }
+}
+
+

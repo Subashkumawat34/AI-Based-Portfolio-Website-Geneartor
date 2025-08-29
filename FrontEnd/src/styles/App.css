@@ -1,0 +1,107 @@
+/* Global App Styles */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f4f7f6; /* Light background for the whole page */
+  color: #333; /* Default text color */
+}
+
+/* Main content area padding to account for the fixed navbar */
+.app-content {
+  padding-top: 80px; /* Match this to your navbar's approximate height + a little buffer */
+  padding-bottom: 2rem; /* Space at the bottom */
+  width: 100%;
+  /* overflow-x: hidden; /* Prevent horizontal scroll on app content if needed */
+}
+
+/* Styles for Login/Signup forms using .auth-container */
+.auth-container {
+  max-width: 450px; /* Max width of the auth box */
+  margin: 3rem auto; /* Centering the box with more top/bottom margin */
+  padding: 2rem 2.5rem; /* Slightly more padding */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+  /* text-align: center; -- Let form elements decide text alignment */
+}
+
+.auth-container h1 {
+  margin-bottom: 2rem; /* More space below title */
+  color: #333;
+  font-weight: 600;
+  text-align: center; /* Center the heading */
+  font-size: 1.8rem; /* Slightly larger heading */
+}
+
+/* Bootstrap .form-group will handle margin, or use custom class if needed */
+/* .auth-container form div {
+  margin-bottom: 1.25rem; /* Increased spacing between form fields */
+/* text-align: left; -- label is block, input is width 100% */
+/*} */
+
+.auth-container label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
+}
+
+/* Using Bootstrap's .form-control, but can add overrides if needed */
+.auth-container input.form-control {
+  /* More specific */
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ced4da; /* Bootstrap's default border */
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.auth-container input.form-control:focus {
+  border-color: #80bdff; /* Bootstrap focus color */
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Using Bootstrap's .btn .btn-primary, but can add overrides */
+.auth-container button.btn-primary {
+  /* More specific */
+  width: 100%; /* Full width button */
+  padding: 0.8rem;
+  /* background-color: #007bff; Already handled by btn-primary */
+  /* color: white; Already handled by btn-primary */
+  /* border: none; Already handled by btn-primary */
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  /* transition: background-color 0.2s ease-in-out; Already handled by btn-primary */
+  margin-top: 1rem; /* Space above the button */
+}
+
+/* .auth-container button.btn-primary:hover {
+  background-color: #0056b3; Already handled by btn-primary
+} */
+
+.auth-container .mt-3 {
+  /* For "Don't have an account?" text */
+  display: block;
+  margin-top: 1.5rem; /* Standard Bootstrap margin */
+  color: #555;
+  text-align: center;
+}
+
+.auth-container .mt-3 a {
+  color: #007bff; /* Bootstrap primary color for links */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-container .mt-3 a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,163 @@
+.navbar-custom {
+  background-color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
+  animation: slideDownNav 0.6s ease-out forwards;
+  /* Ensure high z-index if there are overlapping issues, though fixed-top usually handles this */
+  z-index: 1030; /* Standard Bootstrap fixed navbar z-index */
+}
+
+.navbar-custom .nav-link {
+  color: #4a4a4a; /* Dark grey for readability */
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  font-weight: 500; /* Slightly bolder */
+  transition: color 0.2s ease-in-out;
+}
+
+.navbar-custom .nav-link:hover,
+.navbar-custom .nav-link.active {
+  /* .active class is set by React Router NavLink if used */
+  color: #000000; /* Black or primary color on hover/active */
+}
+
+.navbar-custom .navbar-toggler {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+.navbar-custom .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.65%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e"); /* Slightly darker for better visibility */
+}
+
+/* Logo Styles */
+.zapier-logo-link {
+  /* This is now a <Link> component */
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.logo-bar {
+  width: 22px;
+  height: 7px;
+  background-color: #ff4f00; /* EduForge primary color - keep or change */
+  margin-right: 6px; /* Slightly more space */
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
+  border-radius: 1px; /* Subtle rounding */
+}
+
+.logo-text {
+  font-weight: bold;
+  font-size: 1.8rem; /* Consistent with existing */
+  line-height: 1;
+  color: black;
+}
+
+/* Sign Up Button */
+.btn-signup {
+  /* This class is applied to a <Link> acting as a button */
+  color: white !important;
+  border-radius: 25px; /* Keep if this is the desired style */
+  padding: 0.6rem 1.5rem; /* Slightly adjusted padding */
+  font-weight: bold;
+  text-decoration: none;
+  background-color: #ff4f00 !important; /* EduForge primary - keep or change */
+  border: 1px solid #ff4f00 !important; /* Border for consistency */
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+}
+.btn-signup:hover {
+  background-color: #e04500 !important; /* Darker shade on hover */
+  border-color: #e04500 !important;
+  color: white !important;
+}
+
+/* User dropdown icon */
+.navbar-custom .bi-person-circle {
+  transition: color 0.2s ease;
+}
+.navbar-custom .nav-link:hover .bi-person-circle {
+  color: #000; /* Darken icon on hover of its link parent */
+}
+
+/* Container padding */
+.navbar-container-custom {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .navbar-nav.left-nav {
+    padding-left: 1rem;
+  }
+  .navbar-nav.right-nav .nav-item:last-child {
+    margin-left: 0.5rem;
+  }
+}
+
+/* --- ANIMATIONS --- */
+/* Keep animations as they are if they work well */
+@keyframes slideDownNav {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInItemTop {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.zapier-logo-link,
+.navbar-custom .left-nav > .nav-item,
+.navbar-custom .right-nav > .nav-item {
+  /* opacity: 0;  <--- This was correctly removed/commented if animation-fill-mode is backwards */
+  animation: slideInItemTop 0.5s ease-out forwards;
+  animation-fill-mode: backwards;
+}
+
+/* Staggered animation delays for items */
+.zapier-logo-link {
+  animation-delay: 0.3s;
+}
+.navbar-custom .left-nav > .nav-item:nth-child(1) {
+  animation-delay: 0.4s;
+}
+.navbar-custom .left-nav > .nav-item:nth-child(2) {
+  animation-delay: 0.5s;
+}
+.navbar-custom .left-nav > .nav-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+/* Add more if needed */
+
+.navbar-custom .right-nav > .nav-item:nth-child(1) {
+  animation-delay: 0.7s;
+} /* Adjusted delays */
+.navbar-custom .right-nav > .nav-item:nth-child(2) {
+  animation-delay: 0.8s;
+}
+/* Add more if needed */
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-custom,
+  .zapier-logo-link,
+  .navbar-custom .left-nav > .nav-item,
+  .navbar-custom .right-nav > .nav-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
