@@ -1,151 +1,295 @@
-/* Reset and Box Sizing */
+/* Hero.css - drop this in and import from your component */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Ensure html and body allow scrolling */
+:root {
+  --bg: #f5eeff; /* pale lavender */
+  --accent: #6f2ce8; /* purple CTA */
+  --text: #0b0b0b;
+  --muted: #6b7280;
+}
+
 html,
 body {
   width: 100%;
-  min-height: 100vh; /* Use min-height to allow content to grow */
+  min-height: 100vh;
   overflow-x: hidden;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
 }
 
-/* Page container */
 .page-container {
   width: 100%;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  padding: 0px 20px;
+  padding: 0 20px 48px;
+  background: transparent;
 }
 
-/* Hero section */
+/* HERO */
 .hero-section {
-  min-height: calc(
-    100vh - 80px
-  ); /* Adjusted for navbar height, if hero is first visible content */
-  display: flex; /* To center content-wrapper */
-  align-items: center; /* To center content-wrapper */
-  justify-content: center; /* To center content-wrapper */
-  background-color: rgb(235, 235, 235); /* Consider a more modern palette */
-  padding: 2rem; /* Default padding */
-  /* border-radius: 20px; This might look odd for a full-width section */
-  /* max-width: 1400px; If not full-width, then max-width and margin auto */
-  /* margin-left: auto; */
-  /* margin-right: auto; */
-  width: 100%; /* Full width */
-  /* padding-top: 70px; This padding is handled by .app-content in App.jsx for overall page */
+  width: 100%;
+  padding: 48px 0;
+  background: var(--bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .content-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 0 8px;
+}
+
+/* Left column (text + ctas) */
+.left-col {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1200px; /* Max width for content inside hero */
-  gap: 2rem;
-  /* height: 100%; Removed, let content define height */
-  align-items: center; /* Center items when stacked vertically */
-  text-align: center; /* Center text content */
+  gap: 18px;
+  text-align: left;
 }
 
-.text-content {
-  width: 100%;
-  max-width: 600px; /* Constrain text width for readability */
-}
-
-.text-content h1 {
-  margin-top: 0;
-  margin-bottom: 1.5rem;
-  font-size: 2.5rem; /* Example size */
-}
-
-.button-parent {
+.breadcrumb {
+  color: var(--muted);
+  font-size: 0.95rem;
   display: flex;
-  flex-direction: column; /* Stack buttons on small screens */
-  align-items: center; /* Center buttons */
-  gap: 1rem; /* Adjusted gap */
-  margin-top: 1.5rem; /* Increased margin */
+  gap: 8px;
+  align-items: center;
 }
 
-.button-parent .btn {
-  /* Target Bootstrap buttons */
-  min-width: 200px; /* Minimum width for buttons */
+.breadcrumb a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.breadcrumb span[aria-hidden] {
+  opacity: 0.6;
 }
 
-.image-container {
+/* Headline — responsive with clamp */
+.left-col h1 {
+  font-size: clamp(32px, 6.5vw, 64px);
+  line-height: 1.02;
+  color: var(--text);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+/* Optional subheading */
+.subheading {
+  font-size: 1.05rem;
+  color: #374151;
+  max-width: 560px;
+  font-weight: 500;
+}
+
+/* Buttons */
+.button-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.cta-btn {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 12px 20px !important;
+  border-radius: 12px !important;
+  min-width: 220px;
+  font-weight: 700;
+  box-shadow: 0 10px 28px rgba(111, 44, 232, 0.16);
+  cursor: pointer;
+}
+
+.link-btn {
+  background: transparent !important;
+  border: none !important;
+  color: var(--accent) !important;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 8px 12px !important;
+}
+
+/* Right column (image card) */
+.right-col {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-card {
   width: 100%;
-  max-width: 500px; /* Max width for image */
+  max-width: 540px;
+  border-radius: 18px;
+  padding: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbff 100%);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
 }
 
 .responsive-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  border-radius: 8px; /* Optional: rounded corners for image */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-}
-
-/* Content section - for content below hero */
-.content-section {
-  flex: 1; /* Takes remaining space if page-container is flex */
-  padding: 1rem;
   width: 100%;
-  margin: 1rem auto; /* Add top margin to separate from hero */
-  width: calc(100% - 40px);
-  background-color: white; /* Or transparent if body has bg color */
-  border-radius: 8px; /* Optional */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Optional */
+  display: block;
+  height: auto;
+  border-radius: 10px;
+  object-fit: cover;
+  display: block;
 }
 
-/* Tablet and desktop layout adjustments */
-@media (min-width: 768px) {
-  .hero-section {
-    padding: 3rem;
-    /* padding-top: 70px; Should still be handled by .app-content */
-  }
+/* Features row below hero */
+.features-row {
+  margin: 22px auto 0;
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+}
 
+.feature {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex: 1;
+  min-width: 160px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: 0 6px 18px rgba(17, 24, 39, 0.03);
+}
+
+.feature .icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 6px 14px rgba(2, 6, 23, 0.06);
+}
+
+.feature p {
+  margin: 0;
+  font-weight: 600;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
   .content-wrapper {
-    flex-direction: row;
-    gap: 3rem;
-    align-items: center; /* Align items centrally in a row */
-    text-align: left; /* Align text to left on larger screens */
+    flex-direction: column-reverse;
+    gap: 24px;
   }
-
-  .text-content {
-    flex: 1; /* Allow text content to take available space */
-    text-align: left; /* Align text to left on larger screens */
+  .left-col {
+    text-align: center;
+    align-items: center;
   }
-  .text-content h1 {
-    font-size: 3rem; /* Larger font for desktop */
+  .left-col h1 {
+    text-align: center;
   }
-
-  .image-container {
-    flex: 1; /* Allow image container to take available space */
+  .button-group {
+    justify-content: center;
   }
-
-  .button-parent {
-    flex-direction: row; /* Buttons side-by-side */
-    justify-content: flex-start; /* Align buttons to the start */
-    gap: 1.5rem;
+  .features-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .cta-btn {
+    min-width: 180px;
   }
 }
-
-/* Styling for .works-text if it's a custom class for the "See How EduForge Works" button */
-.works-text.btn-link {
-  /* Make it more specific if it's a Bootstrap button */
-  color: #007bff; /* Or your primary color */
-  text-decoration: none;
-  font-weight: 500;
-}
-.works-text.btn-link:hover {
-  text-decoration: underline;
+.extra-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0 auto 0 4rem;
+  align-items: center;
+  max-width: 1200px;
+  padding: 0 10rem;
 }
 
-.content-paragraph {
-  font-size: large;
-  color: rgb(2, 117, 2);
-  font-weight: 500;
+.extra-image {
+  flex: 1;
+}
+
+.extra-responsive-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.extra-content {
+  flex: 1;
+}
+
+.extra-content h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.extra-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.three-divs-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* 3 equal columns */
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 4rem auto 0rem auto;
+  padding: 2rem;
+}
+
+.three-div {
+  background: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.three-div h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.three-div p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+/* Responsive for mobile */
+@media (max-width: 900px) {
+  .three-divs-section {
+    grid-template-columns: 1fr; /* stack */
+  }
+}
+.foot-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  gap: 20px;
 }

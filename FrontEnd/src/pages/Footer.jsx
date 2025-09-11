@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 footer-column">
-            <h5 className="footer-heading">EduForge</h5>
+            <h5 className="footer-heading">ProFolio.AI</h5>
             <p className="small">
               Empowering educators and learners through innovative technology.
               Improve your productivity automatically.

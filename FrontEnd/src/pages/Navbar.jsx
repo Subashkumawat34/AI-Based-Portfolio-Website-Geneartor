@@ -28,7 +28,7 @@ const Navbar = ({
         {/* Use Link component for client-side navigation */}
         <Link className="navbar-brand zapier-logo-link" to="/">
           <div className="logo-bar"></div>
-          <span className="logo-text">EduForge</span>
+          <span className="logo-text">ProFolio.AI</span>
         </Link>
         <button
           className="navbar-toggler"
