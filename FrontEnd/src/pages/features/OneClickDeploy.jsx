@@ -1,64 +1,85 @@
 // OneClickDeploy.jsx
-import React from "react";
 import "../../styles/Features.css";
 
 const OneClickDeploy = () => {
   return (
     <div className="feature-page-container">
+      {/* HERO */}
       <header className="feature-hero deploy">
-        <h1>One-Click Website Deployment</h1>
+        <h1>One-Click Portfolio Deployment</h1>
         <p>
-          Deploy your school website seamlessly to the web — no coding, no
-          manual steps, just a single click.
+          Launch your AI-generated portfolio online instantly with our automated
+          deployment pipeline — GitHub + Vercel integration built-in.
         </p>
       </header>
 
+      {/* HOSTING BENEFITS */}
       <section className="feature-section">
-        <h2>Lightning-Fast Hosting with Vercel</h2>
+        <h2>Seamless Hosting Experience</h2>
         <p>
-          Your school site is deployed on Vercel's high-performance CDN,
-          ensuring global accessibility, blazing-fast speeds, and industry-grade
-          security.
+          Forget about manual coding, servers, or FTP uploads. Your portfolio is
+          automatically hosted on Vercel’s global CDN with GitHub version
+          control.
         </p>
         <ul className="ai-benefits-list">
-          <li>⚡ Instant live preview</li>
-          <li>🔒 HTTPS-enabled out of the box</li>
-          <li>🌍 Global CDN for fast access anywhere</li>
-          <li>📈 Scalable infrastructure</li>
+          <li>⚡ Instant live preview before publishing</li>
+          <li>🔒 HTTPS and SSL security by default</li>
+          <li>🌍 Global CDN ensures blazing-fast performance</li>
+          <li>📈 Scales automatically to handle recruiter traffic</li>
+          <li>💾 GitHub backup for safe storage & collaboration</li>
+          <li>📊 Built-in analytics to track visitors</li>
         </ul>
       </section>
 
+      {/* HOW DEPLOY WORKS */}
       <section className="feature-section">
-        <h2>Deploy in Three Simple Steps</h2>
+        <h2>Deploy in Three Steps</h2>
         <div className="step-list">
           <div className="step">
             <span>1️⃣</span>
-            <p>Finish customizing your website with our AI builder.</p>
+            <p>Finalize your portfolio with AI-enhanced content.</p>
           </div>
           <div className="step">
             <span>2️⃣</span>
             <p>
-              Click on the <strong>Deploy Now</strong> button.
+              Click <strong>Deploy Now</strong> — our system pushes your code to
+              GitHub and connects to Vercel.
             </p>
           </div>
           <div className="step">
             <span>3️⃣</span>
             <p>
-              Your website is live — share it with parents, staff, and the
-              world!
+              Get a live link instantly — share it with recruiters, clients, or
+              peers.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="feature-highlight">
-        <h2>Manage, Update & Grow</h2>
+      {/* MANAGEMENT */}
+      <section className="feature-section">
+        <h2>Manage & Update Easily</h2>
         <p>
-          After deployment, you can manage content updates through our
-          dashboard. From event announcements to staff updates — it's simple and
-          quick.
+          Updating your portfolio is simple: re-upload your resume or add new
+          inputs, and redeploy with one click. Stay current without technical
+          hassle.
         </p>
-        <button className="primary-btn">Deploy Your Website</button>
+        <ul className="ai-benefits-list">
+          <li>📝 Edit content anytime with AI suggestions</li>
+          <li>🚀 Re-deploy updated versions instantly</li>
+          <li>👩‍💻 Maintain multiple portfolio versions</li>
+          <li>📂 Auto-save to GitHub for safe versioning</li>
+        </ul>
+      </section>
+
+      {/* CTA */}
+      <section className="feature-highlight">
+        <h2>Go Live in Seconds</h2>
+        <p>
+          From resume to live professional portfolio in just a few minutes —
+          that’s the power of AI + automation.
+        </p>
+        <button className="primary-btn">Deploy My Portfolio</button>
       </section>
     </div>
   );

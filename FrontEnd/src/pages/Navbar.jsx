@@ -92,6 +92,48 @@ const Navbar = ({
                 How It Works
               </Link>
             </li>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="featuresDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Resources
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="featuresDropdown">
+                <li>
+                  <Link className="dropdown-item" to="/features/ai-content">
+                    Tutorials
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/features/deployment">
+                    Blogs
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {!isAuthenticated ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/how-it-works">
+                    About
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/generate-website">
+                    Upload Resume
+                  </Link>
+                </li>
+              </>
+            )}
           </ul>
 
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center right-nav">
