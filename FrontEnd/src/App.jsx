@@ -11,6 +11,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
+import Tutorials from "./pages/resources/tutorials";
+import Blogs from "./pages/resources/blogs";
 import HowItWorks from "./pages/HowItWorks";
 import MyDashboard from "./pages/MyDashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -205,6 +207,8 @@ function App() {
               </div>
             }
           />
+          <Route path="/resources/tutorials" element={<Tutorials />} />
+          <Route path="/resources/blogs" element={<Blogs />} />
         </Routes>
       </main>
       <Footer />

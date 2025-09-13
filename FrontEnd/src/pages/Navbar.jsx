@@ -105,12 +105,12 @@ const Navbar = ({
               </a>
               <ul className="dropdown-menu" aria-labelledby="featuresDropdown">
                 <li>
-                  <Link className="dropdown-item" to="/features/ai-content">
+                  <Link className="dropdown-item" to="/resources/tutorials">
                     Tutorials
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" to="/features/deployment">
+                  <Link className="dropdown-item" to="/resources/blogs">
                     Blogs
                   </Link>
                 </li>

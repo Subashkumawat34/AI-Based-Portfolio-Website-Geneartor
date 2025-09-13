@@ -1,8 +1,9 @@
 import "../styles/Home.css";
 import { Button } from "react-bootstrap";
 import SchoolImage from "../assets/school-image.jpg";
-import { useNavigate } from "react-router-dom";
 import Section1 from "../assets/section1.png";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function Home({ isAuthenticated, userName }) {
   const navigate = useNavigate();
@@ -19,13 +20,43 @@ function Home({ isAuthenticated, userName }) {
     }
   };
 
+  // Animation Variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
+  const fadeLeft = {
+    hidden: { opacity: 0, x: -80 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+  };
+
+  const fadeRight = {
+    hidden: { opacity: 0, x: 80 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.8 } },
+  };
+
+  const stagger = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
   return (
     <>
       <div className="page-container">
-        <div className="hero-section">
+        {/* HERO */}
+        <motion.div
+          className="hero-section"
+          initial="hidden"
+          animate="visible"
+          variants={stagger}
+        >
           <div className="content-wrapper">
-            {/* LEFT */}
-            <div className="left-col">
+            <motion.div className="left-col" variants={fadeLeft}>
               <nav className="breadcrumb" aria-label="Breadcrumb">
                 <a href="/">Home</a>
                 <span aria-hidden="true">›</span>
@@ -33,9 +64,9 @@ function Home({ isAuthenticated, userName }) {
               </nav>
 
               <h1>
-                Free Portfolio
+                Online Portfolio
                 <br />
-                Website Builder
+                Creator
               </h1>
 
               <p className="subheading">
@@ -63,10 +94,13 @@ function Home({ isAuthenticated, userName }) {
                   See How it Works
                 </Button>
               </div>
-            </div>
+            </motion.div>
 
-            {/* RIGHT */}
-            <div className="right-col" aria-hidden="true">
+            <motion.div
+              className="right-col"
+              variants={fadeRight}
+              aria-hidden="true"
+            >
               <div className="image-card">
                 <img
                   src={SchoolImage}
@@ -75,125 +109,156 @@ function Home({ isAuthenticated, userName }) {
                   loading="lazy"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="features-row" aria-hidden="true">
-          <div className="feature">
-            <div className="icon">🧩</div>
-            <p>Easy drag-and-drop editor</p>
-          </div>
-          <div className="feature">
-            <div className="icon">🖼️</div>
-            <p>3M+ free stock photos and graphics</p>
-          </div>
-          <div className="feature">
-            <div className="icon">✨</div>
-            <p>Generate content and media with AI</p>
-          </div>
-          <div className="feature">
-            <div className="icon">🔗</div>
-            <p>Download or share designs easily</p>
-          </div>
-        </div>
+        <motion.div
+          className="features-row"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={stagger}
+        >
+          {[
+            { icon: "🧩", text: "Easy drag-and-drop editor" },
+            { icon: "🖼️", text: "3M+ free stock photos and graphics" },
+            { icon: "✨", text: "Generate content and media with AI" },
+            { icon: "🔗", text: "Download or share designs easily" },
+          ].map((f, i) => (
+            <motion.div key={i} className="feature" variants={fadeUp}>
+              <div className="icon">{f.icon}</div>
+              <p>{f.text}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
 
-      {/* NEW SECTION LIKE THE IMAGE */}
-      <div className="extra-section">
-        <div className="extra-content">
+      <motion.div
+        className="extra-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={stagger}
+      >
+        <motion.div className="extra-content" variants={fadeLeft}>
           <h2>Smart online portfolio website maker</h2>
           <p>
             Create a portfolio website that’s as unique and creative as you are.
             Impress potential clients and employers from the get-go with a
             stunning portfolio design made using ProFolio.AI free online
             portfolio website builder. Easily create professional-looking
-            portfolios that showcase your skills, qualifications, and best work
-            sans the hassle of complicated online website builders or learning
-            advanced graphic design features that takes time.
+            portfolios that showcase your skills, qualifications, and best work.
           </p>
-        </div>
-        {/* Image Section */}
-        <div className="extra-image">
+        </motion.div>
+
+        <motion.div className="extra-image" variants={fadeRight}>
           <img
             src={Section1}
             alt="Example portfolio template"
             className="extra-responsive-img"
             loading="lazy"
           />
-        </div>
+        </motion.div>
 
-        {/* Content Section */}
-        <div className="extra-content">
+        <motion.div className="extra-content" variants={fadeLeft}>
           <p>
             Powered by our smart drag-and-drop editing tools and features, you
-            can create a creative portfolio website in minutes. ProFolio.AI
-            website builder lets you get down to business right away. Start
-            inspired with professionally designed and fully editable portfolio
-            website templates, create a new one on your own, or create a website
-            mockup to visualize your design. Showcase your past projects, work
-            experiences, and best skills through beautiful graphs, timelines,
-            and images. Get any free stock video footage or stock photos into
-            your chosen portfolio layout with a simple drag and drop. Import
-            your own fonts or use our free font library and present text into
-            eye-catching headers and font combinations. Then, publish on the web
-            easily with a free Canva domain or purchase a custom one for you.
+            can create a creative portfolio website in minutes. Showcase your
+            projects, work experiences, and skills through beautiful layouts and
+            publish instantly.
           </p>
           <Button className="cta-btn">Start Building</Button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
+      <motion.div
+        className="three-divs-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={stagger}
+      >
+        {[
+          {
+            title: "Showcase your best work in one site",
+            text: "A good portfolio website design is made out of well-chosen pieces that tell your story. Whether you are a writer, designer, or developer, highlight your best projects.",
+          },
+          {
+            title: "Get your digital portfolio in minutes",
+            text: "Publish and share your new portfolio with just a few clicks. Create a one-page portfolio with a free ProFolio.AI domain, or connect your custom domain.",
+          },
+          {
+            title: "Spotlight your printed portfolio",
+            text: "When you need a physical copy of your portfolio, ProFolio.AI Print is ready. Choose a template and get noticed both online and offline.",
+          },
+        ].map((d, i) => (
+          <motion.div key={i} className="three-div" variants={fadeUp}>
+            <h2>{d.title}</h2>
+            <p>{d.text}</p>
+          </motion.div>
+        ))}
+      </motion.div>
 
-      <div className="three-divs-section">
-        <div className="three-div">
-          <h2>Showcase your best work in one site</h2>
-          <p>
-            A good portfolio website design is made out of well-chosen pieces
-            that tell the story of what you are good at. Whether you are a
-            writer, artist, graphic designer, model, software developer, or
-            business owner, make sure that you select the best projects you’ve
-            worked on or the pieces you are most proud of.
-          </p>
-          <p>
-            Start inspired with the hundreds of free portfolio website templates
-            on Canva.You can choose between simple mobile-ready, one-page
-            website templates to artful,showcases of your work. Edit each
-            template page to emphasize the type of work you do best and the kind
-            of client you want to work with.
-          </p>
-        </div>
-        <div className="three-div">
-          <h2>Get your digital portfolio in minutes</h2>
-          <p>
-            With our online portfolio builder, you can publish and share your
-            new portfolio website online in a few clicks. Create a one-page
-            portfolio website and publish on the web with your own Canva site
-            domain for free. Or, with Canva Pro, use a domain name search tool
-            and purchase your own custom domain.
-          </p>
-          <p>
-            Be found on Google and other search engines with our SEO-friendly
-            website templates. All one-page site templates are
-            mobile-responsive, so your portfolio looks as beautiful on mobile
-            web, tablet, or other devices, as it is on desktop.
-          </p>
-        </div>
-        <div className="three-div">
-          <h2>Spotlight your printed portfolio</h2>
-          <p>
-            When it makes more sense to design and create a physical copy of
-            your portfolio than publish on the web, Canva Print is ready for
-            you. Choose a photo book template or other printable portfolio
-            templates and customize them according to your unique brand theme. A
-            creative portfolio printed on high-quality paper helps create a more
-            lasting impression during face-to-face networking events, business
-            meetings, and interviews—allowing you to show off the details of
-            your artwork and your best self. Get noticed and land that job with
-            Canva’s free custom portfolio maker today.
-          </p>
-        </div>
-      </div>
+      <motion.div
+        className="cta-banner"
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <h2>
+          Create digital portfolios for products, services, and brands in
+          minutes
+        </h2>
+        <button className="cta-button">Make a digital portfolio</button>
+      </motion.div>
+      <motion.div
+        className="testimonial-section"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={stagger}
+      >
+        <h2 className="testimonial-title">What people say about ProFolio.AI</h2>
 
-      <div className="foot-button">
+        <div className="testimonial-grid">
+          {[
+            {
+              name: "Student User",
+              role: "Built Portfolio from Resume",
+              text: "I uploaded my resume and within minutes ProFolio.AI created a complete portfolio site. It looked professional and really helped me showcase my academic projects.",
+            },
+            {
+              name: "Job Seeker",
+              role: "AI-Enhanced Personal Branding",
+              text: "The AI-generated content gave me polished project descriptions and skill summaries that I could never phrase so well on my own.",
+            },
+            {
+              name: "Freelancer",
+              role: "Instant Website Deployment",
+              text: "ProFolio.AI saved me hours of setup. I deployed instantly and shared my portfolio link with clients without worrying about hosting.",
+            },
+            {
+              name: "Career Switcher",
+              role: "From Resume to Online Identity",
+              text: "Having a professional website helped me present my transferable skills clearly. ProFolio.AI made the whole process effortless.",
+            },
+          ].map((t, i) => (
+            <motion.div key={i} className="testimonial-card" variants={fadeUp}>
+              <h4>{t.name}</h4>
+              <p className="role">{t.role}</p>
+              <p>{t.text}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+      <motion.div
+        className="foot-button"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
         <Button
           className="cta-btn"
           onClick={handlePrimaryActionClick}
@@ -210,7 +275,7 @@ function Home({ isAuthenticated, userName }) {
         >
           See How it Works
         </Button>
-      </div>
+      </motion.div>
     </>
   );
 }

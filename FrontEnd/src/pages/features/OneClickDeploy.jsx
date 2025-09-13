@@ -4,7 +4,7 @@ import "../../styles/Features.css";
 const OneClickDeploy = () => {
   return (
     <div className="feature-page-container">
-      {/* HERO */}
+
       <header className="feature-hero deploy">
         <h1>One-Click Portfolio Deployment</h1>
         <p>
@@ -13,7 +13,6 @@ const OneClickDeploy = () => {
         </p>
       </header>
 
-      {/* HOSTING BENEFITS */}
       <section className="feature-section">
         <h2>Seamless Hosting Experience</h2>
         <p>
@@ -31,7 +30,6 @@ const OneClickDeploy = () => {
         </ul>
       </section>
 
-      {/* HOW DEPLOY WORKS */}
       <section className="feature-section">
         <h2>Deploy in Three Steps</h2>
         <div className="step-list">
@@ -56,7 +54,6 @@ const OneClickDeploy = () => {
         </div>
       </section>
 
-      {/* MANAGEMENT */}
       <section className="feature-section">
         <h2>Manage & Update Easily</h2>
         <p>
@@ -72,7 +69,6 @@ const OneClickDeploy = () => {
         </ul>
       </section>
 
-      {/* CTA */}
       <section className="feature-highlight">
         <h2>Go Live in Seconds</h2>
         <p>
