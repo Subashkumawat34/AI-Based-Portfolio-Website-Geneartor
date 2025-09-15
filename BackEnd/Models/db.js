@@ -3,11 +3,14 @@ const mongoose = require("mongoose");
 const mongo_url = process.env.MONGO_CONN;
 
 mongoose
-  .connect(mongo_url)
-
+  .connect(mongo_url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("mongoDB connected successfully...");
   })
-  .catch(() => {
-    console.log("mongoDB connection error", err);
+  .catch((err) => {
+    console.error("mongoDB connection error:", err.message);
+    process.exit(1); // optional: stop the server if DB fails
   });
