@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import Step1 from "../assets/Login.png";
+import Step1 from "../assets/Login.jpg";
 import Step2 from "../assets/SelectTemplate.avif";
 import Step3 from "../assets/Customised.jpg";
 import Step4 from "../assets/BuiltAndDeploy.png";
