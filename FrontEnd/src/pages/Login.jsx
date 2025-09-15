@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-// ToastContainer is now global in App.jsx
-import { handleError, handleSuccess } from "./utils"; // Corrected import path
+import { handleError, handleSuccess } from "./utils";
 
-// Receive onLoginSuccess prop from App.js
+const API_BASE = import.meta.env.VITE_BACKEND_URL;
+
 function Login({ onLoginSuccess }) {
   const [loginInfo, setLoginInfo] = useState({
     email: "",
@@ -24,19 +24,19 @@ function Login({ onLoginSuccess }) {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(`${API_BASE}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }), // Send only email and password
+        body: JSON.stringify({ email, password }),
       });
 
       const result = await response.json();
 
       if (result.success && result.jwtToken && result.name) {
         handleSuccess(result.message || "Login successful!");
-        onLoginSuccess(result.name, result.jwtToken); // Pass name and token
+        onLoginSuccess(result.name, result.jwtToken);
       } else {
         handleError(
           result.message || "Login failed. Please check your credentials."
@@ -46,12 +46,11 @@ function Login({ onLoginSuccess }) {
       console.error("Login API error:", err);
       handleError("An error occurred during login. Please try again later.");
     }
-    // Clear password field, optionally email too based on UX preference
+
     setLoginInfo((prev) => ({ ...prev, password: "" }));
   };
 
   return (
-    // Use auth-container for consistent styling from App.css
     <div className="auth-container">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
@@ -62,7 +61,7 @@ function Login({ onLoginSuccess }) {
             onChange={handleChange}
             type="email"
             name="email"
-            id="email" // Added id for label association
+            id="email"
             autoFocus
             placeholder="Enter your email"
             value={loginInfo.email}
@@ -76,24 +75,19 @@ function Login({ onLoginSuccess }) {
             onChange={handleChange}
             type="password"
             name="password"
-            id="password" // Added id for label association
+            id="password"
             placeholder="Enter your password"
             value={loginInfo.password}
             required
           />
         </div>
         <button className="btn btn-primary w-100" type="submit">
-          {" "}
-          {/* w-100 for full width */}
           Login
         </button>
         <div className="mt-3 text-center">
-          {" "}
-          {/* text-center for centering link */}
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don’t have an account? <Link to="/signup">Sign up</Link>
         </div>
       </form>
-      {/* ToastContainer moved to App.jsx */}
     </div>
   );
 }
