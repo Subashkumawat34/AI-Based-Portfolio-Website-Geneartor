@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./pages/Navbar";
+import About from "./pages/About";
 import Tutorials from "./pages/resources/tutorials";
 import Blogs from "./pages/resources/blogs";
 import HowItWorks from "./pages/HowItWorks";
@@ -213,6 +214,7 @@ function App() {
           />
           <Route path="/resources/tutorials" element={<Tutorials />} />
           <Route path="/resources/blogs" element={<Blogs />} />
+          <Route path="/About" element={<About />} />
         </Routes>
       </main>
       <Footer />

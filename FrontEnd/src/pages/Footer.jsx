@@ -1,24 +1,50 @@
-
 import { Link } from "react-router-dom";
-import "../styles/Footer.css"; 
+import { motion } from "framer-motion";
+import "../styles/Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Animation variants
+  const fadeUp = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
 
   return (
     <footer className="site-footer">
       <div className="container">
         <div className="row">
-          <div className="col-lg-4 col-md-6 mb-4 mb-lg-0 footer-column">
+          {/* Column 1: About */}
+          <motion.div
+            className="col-lg-4 col-md-6 mb-4 footer-column"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             <h5 className="footer-heading">ProFolio.AI</h5>
             <p className="small">
-              Empowering educators and learners through innovative technology.
-              Improve your productivity automatically.
+              ProFolio.AI is your AI-powered portfolio website generator. Upload
+              your resume, choose a template, and instantly deploy a
+              professional, responsive portfolio site—without writing a single
+              line of code.
             </p>
-          </div>
+            <p className="small">
+              Our mission is to empower students, professionals, and creators to
+              showcase their skills and achievements globally with ease.
+            </p>
+          </motion.div>
 
-
-          <div className="col-lg-2 col-md-3 col-6 mb-4 mb-lg-0 footer-column">
+          {/* Column 2: Quick Links */}
+          <motion.div
+            className="col-lg-2 col-md-3 col-6 mb-4 footer-column"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ delay: 0.2, duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h5 className="footer-heading">Quick Links</h5>
             <ul className="list-unstyled">
               <li>
@@ -42,10 +68,17 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Column 3: Resources/Legal */}
-          <div className="col-lg-3 col-md-3 col-6 mb-4 mb-lg-0 footer-column">
+          {/* Column 3: Resources */}
+          <motion.div
+            className="col-lg-3 col-md-3 col-6 mb-4 footer-column"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ delay: 0.4, duration: 0.6 }}
+            viewport={{ once: true }}
+          >
             <h5 className="footer-heading">Resources</h5>
             <ul className="list-unstyled">
               <li>
@@ -68,17 +101,31 @@ const Footer = () => {
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link to="/templates" className="footer-link">
+                  Templates
+                </Link>
+              </li>
             </ul>
-          </div>
+          </motion.div>
 
-          {/* Column 4: Social Media / Contact */}
-          <div className="col-lg-3 col-md-12 footer-column text-lg-start text-center">
-            {" "}
-            {/* Align text based on screen size */}
-            <h5 className="footer-heading">Connect With Us</h5>
+          {/* Column 4: Contact & Social */}
+          <motion.div
+            className="col-lg-3 col-md-12 footer-column text-lg-start text-center"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            transition={{ delay: 0.6, duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <h5 className="footer-heading">Stay Connected</h5>
+            <p className="small">
+              Have questions or ideas? Reach out to us anytime—we’d love to hear
+              from you!
+            </p>
             <div className="social-icons mb-3">
               <a
-                href="https://facebook.com/eduforge"
+                href="https://facebook.com/profolioai"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -87,7 +134,7 @@ const Footer = () => {
                 <i className="bi bi-facebook"></i>
               </a>
               <a
-                href="https://twitter.com/eduforge"
+                href="https://twitter.com/profolioai"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter"
@@ -96,7 +143,7 @@ const Footer = () => {
                 <i className="bi bi-twitter"></i>
               </a>
               <a
-                href="https://linkedin.com/company/eduforge"
+                href="https://linkedin.com/company/profolioai"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -105,7 +152,7 @@ const Footer = () => {
                 <i className="bi bi-linkedin"></i>
               </a>
               <a
-                href="https://instagram.com/eduforge"
+                href="https://instagram.com/profolioai"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -113,16 +160,31 @@ const Footer = () => {
               >
                 <i className="bi bi-instagram"></i>
               </a>
+              <a
+                href="mailto:contact@profolio.ai"
+                aria-label="Email"
+                className="social-icon"
+              >
+                <i className="bi bi-envelope"></i>
+              </a>
             </div>
-            <p className="small">contact@eduforge.com</p>
-          </div>
+            <p className="small">📧 contact@profolio.ai</p>
+          </motion.div>
         </div>
 
-        <div className="row">
+        {/* Copyright */}
+        <motion.div
+          className="row"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          transition={{ delay: 0.8, duration: 0.6 }}
+          viewport={{ once: true }}
+        >
           <div className="col-12 text-center pt-4 mt-4 border-top copyright-text">
-            <p>© {currentYear} EduForge. All Rights Reserved.</p>
+            <p>© {currentYear} ProFolio.AI. All Rights Reserved.</p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

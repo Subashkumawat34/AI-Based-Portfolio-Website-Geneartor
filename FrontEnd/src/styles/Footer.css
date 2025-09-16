@@ -1,17 +1,17 @@
 .site-footer {
-  background-color: #02192e; /* A dark, professional blue-grey */
-  color: #bdc3c7; /* Light grey text for good contrast */
+  background-color: #02192e;
+  color: #bdc3c7;
   padding: 50px 0;
-  font-size: 0.9rem;
-  margin-top: auto; /* Pushes footer to bottom if content is short (in a flex container) */
+  font-size: 0.95rem;
+  margin-top: auto;
 }
 
 .footer-heading {
-  color: #ffffff; /* White headings */
+  color: #ffffff;
   margin-bottom: 20px;
-  font-weight: 500;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px; /* Optional */
+  font-weight: 600;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
 }
 
 .footer-column p.small {
@@ -19,18 +19,17 @@
 }
 
 .footer-link {
-  color: #ecf0f1; /* Lighter grey for links */
+  color: #ecf0f1;
   text-decoration: none;
   transition: color 0.2s ease-in-out, padding-left 0.2s ease-in-out;
-  display: inline-block; /* Allows padding effect */
+  display: inline-block;
   margin-bottom: 8px;
 }
 
 .footer-link:hover,
 .footer-link:focus {
-  color: #ffffff; /* White on hover */
-  /* text-decoration: underline; */ /* Optional: underline on hover */
-  padding-left: 5px; /* Subtle hover effect */
+  color: #3df2ff;
+  padding-left: 5px;
 }
 
 .list-unstyled {
@@ -40,10 +39,10 @@
 
 .social-icons .social-icon {
   color: #ecf0f1;
-  font-size: 1.5rem; /* Adjust icon size as needed */
+  font-size: 1.5rem;
   margin-right: 15px;
   transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
-  display: inline-block; /* For transform to work properly */
+  display: inline-block;
 }
 
 .social-icons .social-icon:last-child {
@@ -52,13 +51,13 @@
 
 .social-icons .social-icon:hover,
 .social-icons .social-icon:focus {
-  color: #ffffff;
-  transform: translateY(-2px); /* Slight lift effect on hover */
+  color: #3df2ff;
+  transform: translateY(-2px);
 }
 
 .copyright-text {
-  color: #3df2ff; /* Muted color for copyright */
-  border-top-color: #000000 !important; /* Darker border for separation */
+  color: #3df2ff;
+  border-top-color: #000000 !important;
 }
 
 .copyright-text p {
@@ -67,7 +66,6 @@
 
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
-  /* Below large screens */
   .footer-column {
     margin-bottom: 30px;
   }
@@ -77,17 +75,14 @@
 }
 
 @media (max-width: 767.98px) {
-  /* Below medium screens */
   .site-footer {
-    text-align: center; /* Center align content on smaller screens */
+    text-align: center;
   }
   .footer-column ul {
-    display: inline-block; /* Helps with centering if text-align:center on parent */
-    text-align: left; /* Keep list items left-aligned within their centered block */
+    display: inline-block;
+    text-align: left;
   }
   .social-icons {
     margin-top: 10px;
   }
 }
-
-

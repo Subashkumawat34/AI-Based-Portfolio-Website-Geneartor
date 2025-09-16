@@ -120,7 +120,7 @@ const Navbar = ({
             {!isAuthenticated ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/how-it-works">
+                  <Link className="nav-link" to="/About">
                     About
                   </Link>
                 </li>
