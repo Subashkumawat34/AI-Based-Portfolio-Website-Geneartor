@@ -62,8 +62,6 @@ const About = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Features Section */}
         <motion.div
           className="about-features"
           initial="hidden"
@@ -96,8 +94,6 @@ const About = () => {
             ))}
           </div>
         </motion.div>
-
-        {/* How It Works */}
         <motion.div
           className="about-process"
           initial="hidden"
@@ -134,8 +130,6 @@ const About = () => {
             ))}
           </div>
         </motion.div>
-
-        {/* Call to Action */}
         <motion.div
           className="about-cta"
           initial={{ opacity: 0 }}

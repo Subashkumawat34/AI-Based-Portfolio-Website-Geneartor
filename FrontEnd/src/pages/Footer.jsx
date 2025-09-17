@@ -4,8 +4,6 @@ import "../styles/Footer.css";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
-
-  // Animation variants
   const fadeUp = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -15,7 +13,6 @@ const Footer = () => {
     <footer className="site-footer">
       <div className="container">
         <div className="row">
-          {/* Column 1: About */}
           <motion.div
             className="col-lg-4 col-md-6 mb-4 footer-column"
             variants={fadeUp}
@@ -35,8 +32,6 @@ const Footer = () => {
               showcase their skills and achievements globally with ease.
             </p>
           </motion.div>
-
-          {/* Column 2: Quick Links */}
           <motion.div
             className="col-lg-2 col-md-3 col-6 mb-4 footer-column"
             variants={fadeUp}
@@ -69,8 +64,6 @@ const Footer = () => {
               </li>
             </ul>
           </motion.div>
-
-          {/* Column 3: Resources */}
           <motion.div
             className="col-lg-3 col-md-3 col-6 mb-4 footer-column"
             variants={fadeUp}
@@ -108,8 +101,6 @@ const Footer = () => {
               </li>
             </ul>
           </motion.div>
-
-          {/* Column 4: Contact & Social */}
           <motion.div
             className="col-lg-3 col-md-12 footer-column text-lg-start text-center"
             variants={fadeUp}
@@ -171,8 +162,6 @@ const Footer = () => {
             <p className="small">📧 contact@profolio.ai</p>
           </motion.div>
         </div>
-
-        {/* Copyright */}
         <motion.div
           className="row"
           variants={fadeUp}
