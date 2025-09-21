@@ -48,7 +48,6 @@ function Home({ isAuthenticated, userName }) {
   return (
     <>
       <div className="page-container">
-        {/* HERO */}
         <motion.div
           className="hero-section"
           initial="hidden"
