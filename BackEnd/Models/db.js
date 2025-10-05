@@ -8,6 +8,6 @@ mongoose
     console.log("mongoDB connected successfully...");
   })
   .catch((err) => {
-    console.error("mongoDB connection error:", err.message);
+    console.error("mongoDB connection error: ", err.message);
     process.exit(1);
   });

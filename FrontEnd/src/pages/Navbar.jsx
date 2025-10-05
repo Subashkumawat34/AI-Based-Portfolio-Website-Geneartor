@@ -1,17 +1,11 @@
 import React from "react";
-import { useNavigate, Link } from "react-router-dom"; // Added Link
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Navbar.css";
 
-const Navbar = ({
-  isAuthenticated = false,
-  userName = "User",
-  onLogout, // Simplified, App.js handles navigation for login/signup clicks
-}) => {
+const Navbar = ({ isAuthenticated = false, userName = "User", onLogout }) => {
   const navigate = useNavigate();
-
-  // Direct navigation for links, onLogout for action
   const handleLinkNavigation = (path, e) => {
-    if (e) e.preventDefault(); // Prevent default for <a> if it has href="/" or similar
+    if (e) e.preventDefault();
     navigate(path);
   };
 
@@ -25,7 +19,6 @@ const Navbar = ({
   return (
     <nav className="navbar navbar-expand-lg navbar-custom fixed-top">
       <div className="container-fluid navbar-container-custom">
-        {/* Use Link component for client-side navigation */}
         <Link className="navbar-brand zapier-logo-link" to="/">
           <div className="logo-bar"></div>
           <span className="logo-text">ProFolio.AI</span>
@@ -86,7 +79,6 @@ const Navbar = ({
                 </ul>
               </li>
             )}
-            {/* You can add an "Explore" or "How it Works" link here too */}
             <li className="nav-item">
               <Link className="nav-link" to="/how-it-works">
                 How It Works
