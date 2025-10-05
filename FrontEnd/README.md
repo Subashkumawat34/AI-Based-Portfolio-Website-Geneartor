@@ -1,52 +1,12 @@
-# 🌟 AI-Based Portfolio Website Generator Using NLP and Automated Development  
+# React + Vite
 
-🚀 **Live Demo:** [AI Portfolio Generator](https://ai-based-portfolio-website-genearto-seven.vercel.app/home)  
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
----
+Currently, two official plugins are available:
 
-## 📌 Introduction  
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-In today’s world, having a **personal portfolio website** is essential for students, professionals, and job seekers.  
-However, creating one manually requires web development, design, and deployment knowledge.  
+## Expanding the ESLint configuration
 
-The **AI-Based Portfolio Website Generator** solves this problem by using **Natural Language Processing (NLP)** and **Automated Web Development** to create and deploy a complete portfolio website within minutes — no coding required!  
-
----
-
-## ✨ Key Features  
-
-✅ **Resume Upload & Parsing** – Upload your resume (PDF/DOCX), and AI extracts details automatically.  
-✅ **NLP Smart Extraction** – Identifies education, skills, projects, certifications, and experience.  
-✅ **Template Selection** – Choose from multiple professional, responsive portfolio templates.  
-✅ **Automatic Content Filling** – Extracted data is filled into the template dynamically.  
-✅ **Customization** – Modify text, colors, or layout before deployment.  
-✅ **One-Click Deployment** – Instantly deploy on Vercel or GitHub Pages.  
-✅ **User Authentication** – Secure login to save and update portfolios.  
-
----
-
-## 🧩 Tech Stack  
-
-| Category | Technology |
-|-----------|-------------|
-| **Frontend** | React.js, Vite, Tailwind CSS |
-| **Backend** | Node.js, Express.js |
-| **Database** | MongoDB |
-| **NLP Tools** | spaCy, NLTK, Hugging Face Transformers |
-| **Deployment** | Vercel / GitHub Pages |
-| **Authentication** | JWT / Firebase Auth |
-
----
-
-## ⚙️ Vite Configuration  
-
-This project uses **Vite** for fast builds, hot module replacement (HMR), and an optimized React development experience.  
-
-```javascript
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()],
-})
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
