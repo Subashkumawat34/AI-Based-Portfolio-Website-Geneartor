@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.7",
-    "axios": "^1.11.0",
+    "axios": "^1.12.2",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "framer-motion": "^12.23.12",
@@ -19,6 +19,8 @@
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
+    "react-dropzone": "^14.3.8",
+    "react-hook-form": "^7.64.0",
     "react-router-dom": "^7.6.1",
     "react-toastify": "^11.0.5"
   },
