@@ -8,7 +8,7 @@ import Template4 from "../assets/Template4.png";
 import Template5 from "../assets/Template5.png";
 import Template6 from "../assets/Template6.png";
 
-// --- Data (Keep your existing data structures) ---
+// --- Templates Data ---
 const templates = [
   {
     id: 1,
@@ -52,9 +52,9 @@ const templates = [
     previewImage: Template6,
     tagline: "Advanced UI & Features",
   },
-  // Add other templates if you have them
 ];
 
+// --- Initial Form Data ---
 const initialSchoolFormFields = {
   basicInfo: {
     schoolName: "",
@@ -74,35 +74,56 @@ const initialSchoolFormFields = {
   },
   admissions: { process: "", eligibility: "", feeStructure: "" },
   facilities: { library: "", labs: "", sports: "" },
-  // Simplified for brevity, you can add all your fields back
 };
 
-// Helper to format section keys into readable titles
-const formatSectionTitle = (key) => {
-  return key
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase());
-};
+// --- Helper Function ---
+const formatSectionTitle = (key) =>
+  key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase());
 
 const GenerateWebsite = () => {
+  const [step, setStep] = useState(1); // 1: Upload, 2: Template, 3: Form, 4: Success
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [formData, setFormData] = useState(initialSchoolFormFields);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [resumeFile, setResumeFile] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  // Handles changes for regular input fields
+  // --- Step 1: Upload Resume ---
+  const handleFileChange = (e) => {
+    setResumeFile(e.target.files[0]);
+  };
+
+  const handleResumeUpload = async () => {
+    if (!resumeFile) {
+      alert("Please select a resume file first!");
+      return;
+    }
+    setIsUploading(true);
+    try {
+      // Real API example:
+      // const formData = new FormData();
+      // formData.append("resume", resumeFile);
+      // await axios.post("/api/upload-resume", formData);
+      await new Promise((res) => setTimeout(res, 1500)); // Simulate delay
+      setStep(2); // Move to template selection
+    } catch (error) {
+      console.error("Error uploading resume:", error);
+      alert("There was an issue uploading your resume. Try again.");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // --- Step 3: Form Handling ---
   const handleInputChange = (e, section) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [section]: {
-        ...prev[section],
-        [name]: value,
-      },
+      [section]: { ...prev[section], [name]: value },
     }));
   };
 
-  // Handles changes for fields that should be arrays (e.g., subjects)
   const handleArrayInputChange = (e, section, field) => {
     const { value } = e.target;
     setFormData((prev) => ({
@@ -112,7 +133,7 @@ const GenerateWebsite = () => {
         [field]: value
           .split(",")
           .map((item) => item.trim())
-          .filter(Boolean), // filter(Boolean) removes empty strings
+          .filter(Boolean),
       },
     }));
   };
@@ -126,51 +147,38 @@ const GenerateWebsite = () => {
     });
 
     try {
-      // Uncomment this for actual API call
-      // const response = await axios.post("/api/school-websites", {
-      //     templateId: selectedTemplate.id,
-      //     formData,
-      // });
-
-      // Mock API call for demonstration
+      // const response = await axios.post("/api/school-websites", { templateId: selectedTemplate.id, formData });
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      // if (response.data.success) {
-      //   setSubmitSuccess(true);
-      // }
-
-      setSubmitSuccess(true); // Assuming success for demo
+      setSubmitSuccess(true);
+      setStep(4);
     } catch (error) {
       console.error("Error saving school website:", error);
-      alert("There was an error submitting your website. Please try again.");
+      alert("There was an error submitting your website.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   const resetState = () => {
+    setStep(1);
     setSelectedTemplate(null);
     setSubmitSuccess(false);
     setFormData(initialSchoolFormFields);
+    setResumeFile(null);
   };
 
   const renderFormField = (sectionKey, fieldKey, fieldValue) => {
     const label = formatSectionTitle(fieldKey);
-
     if (Array.isArray(fieldValue)) {
       return (
         <div className="form-group" key={fieldKey}>
-          <label htmlFor={`${sectionKey}-${fieldKey}`}>{label}</label>
+          <label>{label}</label>
           <input
             type="text"
-            id={`${sectionKey}-${fieldKey}`}
-            name={fieldKey}
             value={formData[sectionKey][fieldKey].join(", ")}
             onChange={(e) => handleArrayInputChange(e, sectionKey, fieldKey)}
             placeholder="Enter values, separated by commas"
           />
-          <small>
-            Separate items with a comma (e.g., Math, Science, History).
-          </small>
         </div>
       );
     }
@@ -185,10 +193,9 @@ const GenerateWebsite = () => {
 
     return (
       <div className="form-group" key={fieldKey}>
-        <label htmlFor={`${sectionKey}-${fieldKey}`}>{label}</label>
+        <label>{label}</label>
         {isTextArea ? (
           <textarea
-            id={`${sectionKey}-${fieldKey}`}
             name={fieldKey}
             value={fieldValue}
             onChange={(e) => handleInputChange(e, sectionKey)}
@@ -197,7 +204,6 @@ const GenerateWebsite = () => {
         ) : (
           <input
             type="text"
-            id={`${sectionKey}-${fieldKey}`}
             name={fieldKey}
             value={fieldValue}
             onChange={(e) => handleInputChange(e, sectionKey)}
@@ -207,20 +213,52 @@ const GenerateWebsite = () => {
     );
   };
 
+  // --- Render by Step ---
   return (
     <div className="generate-website-container">
-      {!selectedTemplate ? (
+      {/* Step 1: Upload Resume */}
+      {step === 1 && (
+        <div className="upload-resume-container">
+          <h1 className="main-title">Upload Your Resume</h1>
+          <p className="main-subtitle">
+            Upload your resume (PDF/DOCX) to auto-fill school information.
+          </p>
+          <div className="upload-box">
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={handleFileChange}
+            />
+            {resumeFile && (
+              <p className="file-name">Selected: {resumeFile.name}</p>
+            )}
+          </div>
+          <button
+            className="btn btn-primary"
+            onClick={handleResumeUpload}
+            disabled={isUploading}
+          >
+            {isUploading ? "Uploading..." : "Upload & Continue"}
+          </button>
+        </div>
+      )}
+
+      {/* Step 2: Template Selection */}
+      {step === 2 && !selectedTemplate && (
         <>
           <h1 className="main-title">Select a Website Template</h1>
           <p className="main-subtitle">
-            Choose a design to start building your school's new website.
+            Choose a design to start building your school's website.
           </p>
           <div className="template-grid">
             {templates.map((template) => (
               <div
                 key={template.id}
                 className="template-card"
-                onClick={() => setSelectedTemplate(template)}
+                onClick={() => {
+                  setSelectedTemplate(template);
+                  setStep(3);
+                }}
               >
                 <div className="template-image-wrapper">
                   <img
@@ -245,27 +283,17 @@ const GenerateWebsite = () => {
             ))}
           </div>
         </>
-      ) : submitSuccess ? (
-        <div className="success-message-container">
-          <div className="success-icon">✓</div>
-          <h2>Website Created Successfully!</h2>
-          <p>
-            Your school website based on the{" "}
-            <strong>{selectedTemplate.name}</strong> template has been
-            generated.
-          </p>
-          <button className="btn btn-primary" onClick={resetState}>
-            Create Another Website
-          </button>
-        </div>
-      ) : (
+      )}
+
+      {/* Step 3: Website Configuration Form */}
+      {step === 3 && selectedTemplate && !submitSuccess && (
         <div className="website-form-container">
           <form onSubmit={handleSubmit} className="website-form">
             <div className="form-header">
               <h1 className="main-title">Configure Your Website</h1>
               <p className="main-subtitle">
                 You are using the <strong>{selectedTemplate.name}</strong>{" "}
-                template. Fill out the details below.
+                template.
               </p>
             </div>
 
@@ -282,7 +310,10 @@ const GenerateWebsite = () => {
               <button
                 type="button"
                 className="btn btn-secondary"
-                onClick={() => setSelectedTemplate(null)}
+                onClick={() => {
+                  setSelectedTemplate(null);
+                  setStep(2);
+                }}
               >
                 Back to Templates
               </button>
@@ -299,6 +330,22 @@ const GenerateWebsite = () => {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Step 4: Success Message */}
+      {step === 4 && submitSuccess && (
+        <div className="success-message-container">
+          <div className="success-icon">✓</div>
+          <h2>Website Created Successfully!</h2>
+          <p>
+            Your school website based on the{" "}
+            <strong>{selectedTemplate.name}</strong> template has been
+            generated.
+          </p>
+          <button className="btn btn-primary" onClick={resetState}>
+            Create Another Website
+          </button>
         </div>
       )}
     </div>
