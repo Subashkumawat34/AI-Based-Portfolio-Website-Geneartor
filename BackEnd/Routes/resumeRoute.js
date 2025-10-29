@@ -3,7 +3,7 @@ const express = require("express");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const pdfParse = require("pdf-parse");
+const pdfParse = require("pdf-parse"); // ✅ Correct import for pdf-parse
 const mammoth = require("mammoth");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
@@ -18,13 +18,12 @@ if (!process.env.GEMINI_API_KEY) {
 
 // ✅ Initialize Gemini API (FREE MODEL)
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-
 let model;
 try {
-  model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" }); // ✅ FREE model
+  model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" }); // FREE model
 } catch (err) {
   console.warn("⚠️ Falling back to gemini-2.5-flash due to model error");
-  model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); // ✅ Also free
+  model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 }
 
 /**
@@ -36,6 +35,7 @@ async function extractTextFromFile(filePath, mimetype) {
   try {
     if (ext === ".pdf" || mimetype === "application/pdf") {
       const dataBuffer = fs.readFileSync(filePath);
+      // Use pdfParse as a direct function, not as an object
       const parsed = await pdfParse(dataBuffer);
       return parsed.text || "";
     } else if (ext === ".docx" || mimetype.includes("word")) {
