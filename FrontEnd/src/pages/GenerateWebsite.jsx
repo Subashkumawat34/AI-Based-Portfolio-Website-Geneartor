@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import "../styles/GenerateWebsite.css";
+
+// Import all template images
 import Template1 from "../assets/Template1.png";
 import Template2 from "../assets/Template2.png";
 import Template3 from "../assets/Template3.png";
@@ -8,101 +10,206 @@ import Template4 from "../assets/Template4.png";
 import Template5 from "../assets/Template5.png";
 import Template6 from "../assets/Template6.png";
 
-// --- Data (Keep your existing data structures) ---
 const templates = [
   {
     id: 1,
-    name: "Kindergarten Template",
+    name: "Creative Start",
     type: "free",
     previewImage: Template1,
-    tagline: "Perfect for Play Schools",
+    tagline: "Showcase Your Talent with Style",
   },
   {
     id: 2,
-    name: "Modern School",
+    name: "Profolio Modern",
     type: "paid",
     previewImage: Template2,
-    tagline: "Responsive Design with CMS",
+    tagline: "Sleek Portfolio, Built for Impact",
   },
   {
     id: 3,
-    name: "Classic Academy",
+    name: "Classic Showcase",
     type: "free",
     previewImage: Template3,
-    tagline: "Simple & Professional Layout",
+    tagline: "Timeless Design, Professional Presentation",
   },
   {
     id: 4,
-    name: "Elite High School",
+    name: "Portfolio Elite",
     type: "paid",
     previewImage: Template4,
-    tagline: "Includes Admissions Portal",
+    tagline: "Feature-Rich Portal for Top Creators",
   },
   {
     id: 5,
-    name: "Primary School Fun",
+    name: "Vivid Portfolio",
     type: "free",
     previewImage: Template5,
-    tagline: "Vibrant & Colorful Design",
+    tagline: "Colorful Layout for Creative Profiles",
   },
   {
     id: 6,
-    name: "Technical Institute",
+    name: "Tech Profolio",
     type: "paid",
     previewImage: Template6,
-    tagline: "Advanced UI & Features",
+    tagline: "Advanced Tools for Tech Portfolios",
   },
-  // Add other templates if you have them
 ];
 
-const initialSchoolFormFields = {
-  basicInfo: {
-    schoolName: "",
-    motto: "",
-    establishedYear: "",
-    principalName: "",
+const initialPortfolioFormFields = {
+  personalInfo: {
+    fullName: "",
+    nickname: "",
+    location: "",
+    phone: "",
+    email: "",
+    github: "",
+    linkedin: "",
+    twitter: "",
+    website: "",
+    profileImage: "",
+    resumeLink: "",
+    socialLinks: [],
+  },
+  summary: {
+    introduction: "",
+    tagline: "",
+    highlights: [],
+  },
+  education: [
+    {
+      degree: "",
+      institution: "",
+      yearStart: "",
+      yearEnd: "",
+      score: "",
+      details: "",
+    },
+  ],
+  workExperience: [
+    {
+      position: "",
+      organization: "",
+      duration: "",
+      description: "",
+      bulletPoints: [],
+    },
+  ],
+  projects: [
+    {
+      title: "",
+      image: "",
+      description: "",
+      skills: [],
+      repo: "",
+      demo: "",
+    },
+  ],
+  technologies: [
+    {
+      name: "",
+      image: "",
+    },
+  ],
+  contactInfo: {
+    email: "",
+    phone: "",
     address: "",
-    contactEmail: "",
-    phoneNumber: "",
+    formFields: [
+      { label: "Full Name", type: "text", required: true, name: "fullName" },
+      { label: "Email", type: "email", required: true, name: "email" },
+      { label: "Phone Number", type: "text", required: true, name: "phone" },
+      { label: "Subject", type: "text", required: true, name: "subject" },
+      { label: "Message", type: "textarea", required: true, name: "message" },
+    ],
   },
-  aboutUs: { history: "", mission: "", vision: "" },
-  academics: {
-    curriculum: "",
-    gradingSystem: "",
-    subjects: [],
-    academicCalendar: "",
-  },
-  admissions: { process: "", eligibility: "", feeStructure: "" },
-  facilities: { library: "", labs: "", sports: "" },
-  // Simplified for brevity, you can add all your fields back
-};
-
-// Helper to format section keys into readable titles
-const formatSectionTitle = (key) => {
-  return key
-    .replace(/([A-Z])/g, " $1")
-    .replace(/^./, (str) => str.toUpperCase());
 };
 
 const GenerateWebsite = () => {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [formData, setFormData] = useState(initialSchoolFormFields);
+  const [formData, setFormData] = useState(initialPortfolioFormFields);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [deploymentUrl, setDeploymentUrl] = useState("");
+  const [submitError, setSubmitError] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState("");
 
-  // Handles changes for regular input fields
+  // ✅ Handle Resume Upload (with correct auto-fill)
+  const handleResumeUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formDataUpload = new FormData();
+    formDataUpload.append("resume", file);
+
+    setUploading(true);
+    setUploadMessage("Extracting information from resume...");
+
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/extract-resume",
+        formDataUpload,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+      const extractedData = response.data;
+
+      setFormData((prev) => ({
+        ...prev,
+        personalInfo: {
+          ...prev.personalInfo,
+          ...(extractedData.personalInfo || {}),
+        },
+        summary: {
+          ...prev.summary,
+          ...(extractedData.summary || {}),
+        },
+        education: Array.isArray(extractedData.education)
+          ? extractedData.education
+          : prev.education,
+        workExperience: Array.isArray(extractedData.experience)
+          ? extractedData.experience.map((exp) => ({
+              position: exp.title || "",
+              organization: exp.organization || "",
+              duration: exp.duration || "",
+              description: exp.description || "",
+              bulletPoints: [],
+            }))
+          : prev.workExperience,
+        projects: Array.isArray(extractedData.projects)
+          ? extractedData.projects
+          : prev.projects,
+        technologies: Array.isArray(extractedData.skills?.languages)
+          ? extractedData.skills.languages.map((lang) => ({
+              name: lang,
+              image: "",
+            }))
+          : prev.technologies,
+        contactInfo: {
+          ...prev.contactInfo,
+          email: extractedData.personalInfo?.email || prev.contactInfo.email,
+          phone: extractedData.personalInfo?.phone || prev.contactInfo.phone,
+          address:
+            extractedData.personalInfo?.location || prev.contactInfo.address,
+        },
+      }));
+
+      setUploadMessage("Resume data extracted successfully!");
+    } catch (error) {
+      console.error("Resume upload error:", error);
+      setUploadMessage("Failed to extract data. Please fill manually.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
   const handleInputChange = (e, section) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [section]: {
-        ...prev[section],
-        [name]: value,
-      },
+      [section]: { ...prev[section], [name]: value },
     }));
   };
 
-  // Handles changes for fields that should be arrays (e.g., subjects)
   const handleArrayInputChange = (e, section, field) => {
     const { value } = e.target;
     setFormData((prev) => ({
@@ -112,7 +219,7 @@ const GenerateWebsite = () => {
         [field]: value
           .split(",")
           .map((item) => item.trim())
-          .filter(Boolean), // filter(Boolean) removes empty strings
+          .filter(Boolean),
       },
     }));
   };
@@ -120,28 +227,25 @@ const GenerateWebsite = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log("Submitting Data:", {
-      templateId: selectedTemplate.id,
-      formData,
-    });
+    setSubmitError("");
+    setSubmitSuccess(false);
 
     try {
-      // Uncomment this for actual API call
-      // const response = await axios.post("/api/school-websites", {
-      //     templateId: selectedTemplate.id,
-      //     formData,
-      // });
+      const response = await axios.post(
+        "http://localhost:8080/generator/generate-and-deploy",
+        {
+          template: selectedTemplate.id,
+          data: formData,
+        }
+      );
 
-      // Mock API call for demonstration
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      // if (response.data.success) {
-      //   setSubmitSuccess(true);
-      // }
-
-      setSubmitSuccess(true); // Assuming success for demo
+      if (response.data.success) {
+        setDeploymentUrl(response.data.deploymentUrl);
+        setSubmitSuccess(true);
+      } else throw new Error(response.data.message || "Deployment failed");
     } catch (error) {
-      console.error("Error saving school website:", error);
-      alert("There was an error submitting your website. Please try again.");
+      console.error("❌ Error generating website:", error);
+      setSubmitError(error.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -150,11 +254,22 @@ const GenerateWebsite = () => {
   const resetState = () => {
     setSelectedTemplate(null);
     setSubmitSuccess(false);
-    setFormData(initialSchoolFormFields);
+    setFormData(initialPortfolioFormFields);
+    setDeploymentUrl("");
+    setSubmitError("");
   };
 
   const renderFormField = (sectionKey, fieldKey, fieldValue) => {
-    const label = formatSectionTitle(fieldKey);
+    const label = fieldKey
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
+    const isTextArea = [
+      "history",
+      "mission",
+      "vision",
+      "process",
+      "eligibility",
+    ].includes(fieldKey);
 
     if (Array.isArray(fieldValue)) {
       return (
@@ -164,24 +279,13 @@ const GenerateWebsite = () => {
             type="text"
             id={`${sectionKey}-${fieldKey}`}
             name={fieldKey}
-            value={formData[sectionKey][fieldKey].join(", ")}
+            value={formData[sectionKey][fieldKey]?.join(", ")}
             onChange={(e) => handleArrayInputChange(e, sectionKey, fieldKey)}
             placeholder="Enter values, separated by commas"
           />
-          <small>
-            Separate items with a comma (e.g., Math, Science, History).
-          </small>
         </div>
       );
     }
-
-    const isTextArea = [
-      "history",
-      "mission",
-      "vision",
-      "process",
-      "eligibility",
-    ].includes(fieldKey);
 
     return (
       <div className="form-group" key={fieldKey}>
@@ -212,9 +316,6 @@ const GenerateWebsite = () => {
       {!selectedTemplate ? (
         <>
           <h1 className="main-title">Select a Website Template</h1>
-          <p className="main-subtitle">
-            Choose a design to start building your school's new website.
-          </p>
           <div className="template-grid">
             {templates.map((template) => (
               <div
@@ -222,21 +323,11 @@ const GenerateWebsite = () => {
                 className="template-card"
                 onClick={() => setSelectedTemplate(template)}
               >
-                <div className="template-image-wrapper">
-                  <img
-                    src={template.previewImage}
-                    alt={template.name}
-                    className="template-image"
-                  />
-                  <div className="template-overlay">
-                    <button className="btn-select-template">
-                      Select Template
-                    </button>
-                  </div>
-                  <span className={`template-badge ${template.type}`}>
-                    {template.type.toUpperCase()}
-                  </span>
-                </div>
+                <img
+                  src={template.previewImage}
+                  alt={template.name}
+                  className="template-image"
+                />
                 <div className="template-info">
                   <h3>{template.name}</h3>
                   <p>{template.tagline}</p>
@@ -247,13 +338,15 @@ const GenerateWebsite = () => {
         </>
       ) : submitSuccess ? (
         <div className="success-message-container">
-          <div className="success-icon">✓</div>
-          <h2>Website Created Successfully!</h2>
-          <p>
-            Your school website based on the{" "}
-            <strong>{selectedTemplate.name}</strong> template has been
-            generated.
-          </p>
+          <h2>Website Deployed Successfully!</h2>
+          <a
+            href={deploymentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="deployment-link"
+          >
+            {deploymentUrl}
+          </a>
           <button className="btn btn-primary" onClick={resetState}>
             Create Another Website
           </button>
@@ -261,17 +354,29 @@ const GenerateWebsite = () => {
       ) : (
         <div className="website-form-container">
           <form onSubmit={handleSubmit} className="website-form">
-            <div className="form-header">
-              <h1 className="main-title">Configure Your Website</h1>
-              <p className="main-subtitle">
-                You are using the <strong>{selectedTemplate.name}</strong>{" "}
-                template. Fill out the details below.
-              </p>
+            <div className="upload-section">
+              <h3>Upload Resume (Auto-Fill)</h3>
+              <input
+                type="file"
+                accept=".pdf"
+                onChange={handleResumeUpload}
+                disabled={uploading}
+              />
+              {uploading && (
+                <p className="uploading-text">Uploading and Extracting...</p>
+              )}
+              {uploadMessage && (
+                <p className="upload-message">{uploadMessage}</p>
+              )}
             </div>
 
             {Object.entries(formData).map(([sectionKey, sectionFields]) => (
               <fieldset className="form-section" key={sectionKey}>
-                <legend>{formatSectionTitle(sectionKey)}</legend>
+                <legend>
+                  {sectionKey
+                    .replace(/([A-Z])/g, " $1")
+                    .replace(/^./, (str) => str.toUpperCase())}
+                </legend>
                 {Object.entries(sectionFields).map(([fieldKey, fieldValue]) =>
                   renderFormField(sectionKey, fieldKey, fieldValue)
                 )}
@@ -284,18 +389,14 @@ const GenerateWebsite = () => {
                 className="btn btn-secondary"
                 onClick={() => setSelectedTemplate(null)}
               >
-                Back to Templates
+                Back
               </button>
               <button
                 type="submit"
-                className={`btn ${
-                  selectedTemplate.type === "free"
-                    ? "btn-primary"
-                    : "btn-premium"
-                }`}
+                className="btn btn-primary"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Generating..." : "Generate Website"}
+                {isSubmitting ? "Deploying..." : "Generate Website"}
               </button>
             </div>
           </form>

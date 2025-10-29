@@ -297,3 +297,45 @@
   font-size: 1.1rem;
   margin-bottom: 2rem;
 }
+
+.upload-section {
+  background: #f9f9ff;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px dashed #ccc;
+  margin-bottom: 25px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.upload-section:hover {
+  border-color: #6a5acd;
+  background: #f3f3ff;
+}
+
+.upload-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.upload-section input[type="file"] {
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+.uploading-text {
+  color: #888;
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.upload-message {
+  margin-top: 10px;
+  font-weight: 500;
+  color: #4b0082;
+}
